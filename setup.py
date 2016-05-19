@@ -23,5 +23,9 @@ setup(
         'console_scripts': [
             'pyt = pyt.main:main'
         ],
+        'mgmt.main': [
+            'setenv = pyt.general:SetEnv',
+            'getenv = pyt.general:GetEnv',
+        ],
     },
 )
