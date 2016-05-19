@@ -26,6 +26,7 @@ setup(
         'mgmt.main': [
             'setenv = pyt.general:SetEnv',
             'getenv = pyt.general:GetEnv',
+            'config = pyt.config:Config',
         ],
     },
 )
