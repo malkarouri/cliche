@@ -1,5 +1,5 @@
 ================================
-Pyt: The Python Project Template
+Cliche: The Python CLI Framework
 ================================
 
-This is an empty project that will serve as a skeleton for new projects.
+This is a Python framework for development of command line applications.

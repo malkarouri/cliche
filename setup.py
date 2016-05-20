@@ -2,14 +2,14 @@
 
 from setuptools import setup, find_packages
 
-PROJECT = 'Pyt'
+PROJECT = 'Cliche'
 VERSION = '0.1'
 
 
 setup(
     name=PROJECT,
     version=VERSION,
-    description="A Python skeleton project",
+    description="A Python CLI Framework",
 
     author="Muhammad Alkarouri",
     author_email="malkarouri@tabahuth.com",
@@ -21,13 +21,13 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'pyt = pyt.main:main'
+            'cliche = cliche.main:main'
         ],
         'mgmt.main': [
-            'setenv = pyt.general:SetEnv',
-            'getenv = pyt.general:GetEnv',
-            'config = pyt.config:Config',
-            'keyring = pyt.config:KeyRing',
+            'setenv = cliche.general:SetEnv',
+            'getenv = cliche.general:GetEnv',
+            'config = cliche.config:Config',
+            'keyring = cliche.config:KeyRing',
         ],
     },
 )
