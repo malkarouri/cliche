@@ -1,6 +1,6 @@
-from cliff.command import Command
+import ConfigParser
 
-settings = {}
+from cliff.command import Command
 
 class Config(Command):
     "Shows or changes the configuration"
@@ -11,7 +11,15 @@ class Config(Command):
         return parser
 
     def take_action(self, parsed_args):
+        section, key = parsed_args.key.split('.', 1)
         if parsed_args.value:
-            settings[parsed_args.key] = parsed_args.value
+            try:
+                self.app.config.add_section(section)
+            except ConfigParser.DuplicateSectionError:
+                pass
+            self.app.config.set(section, key, parsed_args.value)
+            with open(self.app.config_path, 'wb') as configfile:
+                self.app.config.write(configfile)
         else:
-            self.app.stdout.write("{}\n".format(settings.get(parsed_args.key, "")))
+            value = self.app.config.get(section, key)
+            self.app.stdout.write("{}\n".format(value))

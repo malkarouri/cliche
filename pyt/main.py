@@ -1,4 +1,6 @@
 import sys
+from os.path import basename, splitext
+import ConfigParser
 
 from cliff.app import App
 from cliff.commandmanager import CommandManager
@@ -11,6 +13,9 @@ class MgmtApp(App):
             command_manager=CommandManager('mgmt.main'),
             deferred_help=True,
         )
+        self.config_path = "{}.cfg".format(splitext(basename(sys.argv[0]))[0])
+        self.config = ConfigParser.ConfigParser()
+        self.config.read(self.config_path)
     def initialize_app(self, argv):
         pass
     def prepare_to_run_command(self, cmd):
