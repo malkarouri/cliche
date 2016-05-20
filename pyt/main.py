@@ -13,7 +13,8 @@ class MgmtApp(App):
             command_manager=CommandManager('mgmt.main'),
             deferred_help=True,
         )
-        self.config_path = "{}.cfg".format(splitext(basename(sys.argv[0]))[0])
+        self.app_name = splitext(basename(sys.argv[0]))[0]
+        self.config_path = "{}.cfg".format(self.app_name)
         self.config = ConfigParser.ConfigParser()
         self.config.read(self.config_path)
     def initialize_app(self, argv):
