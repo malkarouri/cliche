@@ -14,7 +14,7 @@ setup(
     author="Muhammad Alkarouri",
     author_email="malkarouri@tabahuth.com",
 
-    install_requires=['cliff'],
+    install_requires=['cliff', 'keyring'],
     namespace_packages=[],
     packages=find_packages(),
     include_package_data=True,
@@ -27,6 +27,7 @@ setup(
             'setenv = pyt.general:SetEnv',
             'getenv = pyt.general:GetEnv',
             'config = pyt.config:Config',
+            'keyring = pyt.config:KeyRing',
         ],
     },
 )

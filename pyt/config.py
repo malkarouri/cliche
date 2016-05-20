@@ -1,5 +1,7 @@
 import ConfigParser
+import getpass
 
+import keyring
 from cliff.command import Command
 
 class Config(Command):
@@ -11,6 +13,9 @@ class Config(Command):
         return parser
 
     def take_action(self, parsed_args):
+        if '.' not in parsed_args.key:
+            self.app.stderr.write("Invalid key\n")
+            return
         section, key = parsed_args.key.split('.', 1)
         if parsed_args.value:
             try:
@@ -23,3 +28,19 @@ class Config(Command):
         else:
             value = self.app.config.get(section, key)
             self.app.stdout.write("{}\n".format(value))
+
+
+class KeyRing(Command):
+    "Shows or changes the configuration"
+    def get_parser(self, prog_name):
+        parser = super(KeyRing, self).get_parser(prog_name)
+        parser.add_argument('key')
+        return parser
+
+    def take_action(self, parsed_args):
+        if '.' not in parsed_args.key:
+            self.app.stderr.write("Invalid key\n")
+            return
+        section, key = parsed_args.key.split('.', 1)
+        value = getpass.getpass()
+        keyring.set_password(self.app.app_name, parsed_args.key, value)
