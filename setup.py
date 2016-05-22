@@ -25,7 +25,6 @@ setup(
         ],
         'mgmt.main': [
             'setenv = cliche.general:SetEnv',
-            'getenv = cliche.general:GetEnv',
             'config = cliche.config:Config',
             'keyring = cliche.config:KeyRing',
         ],
