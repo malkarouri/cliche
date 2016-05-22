@@ -25,8 +25,8 @@ class Config(Command):
             self.app.config.set(section, key, parsed_args.value)
             with open(self.app.config_path, 'wb') as configfile:
                 self.app.config.write(configfile)
-            if key == "environment.name":
-                self.app.interpreter.prompt = "[{}]: ".format(parsed_args.value)
+            if parsed_args.key == "environment.name":
+                self.app.update_prompt()
         else:
             value = self.app.config.get(section, key)
             self.app.stdout.write("{}\n".format(value))

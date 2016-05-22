@@ -17,6 +17,12 @@ class MgmtApp(App):
         self.config_path = "{}.cfg".format(self.app_name)
         self.config = ConfigParser.ConfigParser()
         self.config.read(self.config_path)
+    @property
+    def environment(self):
+        try:
+            return self.config.get('environment', 'name')
+        except ConfigParser.NoOptionError:
+            return ""
     def interact(self):
         # Defer importing .interactive as cmd2 is a slow import
         from cliff.interactive import InteractiveApp
@@ -28,12 +34,11 @@ class MgmtApp(App):
                                                             self.stdin,
                                                             self.stdout,
             )
-        self.initialize_interactive()
+        self.update_prompt()
         self.interpreter.cmdloop()
         return 0
-    def initialize_interactive(self):
-        prompt = self.config.get('environment', 'name') if self.config.has_option('environment', 'name') else ""
-        self.interpreter.prompt = "[{}]: ".format(prompt)
+    def update_prompt(self):
+        self.interpreter.prompt = "[{}]: ".format(self.environment)
     def initialize_app(self, argv):
         pass
     def prepare_to_run_command(self, cmd):
